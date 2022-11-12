@@ -16,7 +16,7 @@ class BankAccount {
 private:
     string ID = "FCAI-";
     double balance;
-
+    char type;
 public:
     Client *client;
 
@@ -42,7 +42,6 @@ public:
 
 };
 
-
 class SavingBankAccount:public BankAccount{
 private:
     double minimum_balance ;
@@ -59,6 +58,7 @@ public:
 };
 
 BankAccount arr[1000];
+Client arr2[1000];
 
 
 

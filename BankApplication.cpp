@@ -45,9 +45,9 @@ void BankAccount:: withdraw(){
 }
 void BankAccount::display(){
     for(int i = 0; i < clientnum; i++) {
-        cout << "Name: " << arr[i].name<< endl;
-        cout << "Address: " << arr[i].address << endl;
-        cout << "Phone number: " << arr[i].phonenum << endl;
+        cout << "Name: " << arr2[i].name<< endl;
+        cout << "Address: " << arr2[i].address << endl;
+        cout << "Phone number: " << arr2[i].phonenum << endl;
         cout << "Type: " << arr[i].type << endl;
         cout << "Balance: " << arr[i].balance << endl;
     }
@@ -63,17 +63,17 @@ void Client:: create_account(){
     cout << "Enter the name of the account holder: ";
     cin.ignore();
     getline(cin, name);
-    arr[clientnum].name = name;
+    arr2[clientnum].name = name;
     cout << "Enter the address of the account holder: ";
     getline(cin, address);
-    arr[clientnum].address = address;
+    arr2[clientnum].address = address;
     cout << "Enter the phone number of the account holder: ";
     cin >> phonenum;
-    arr[clientnum].phonenum = phonenum;
+    arr2[clientnum].phonenum = phonenum;
     cout << "Enter the type of the account (B/S): ";
     cin >> type;
     type = toupper(type);
-    arr[clientnum].type = type;
+    arr2[clientnum].type = type;
     cout << "Enter the initial amount: ";
     cin >> balance;
     arr[clientnum].balance = balance;
