@@ -8,11 +8,7 @@
 using namespace std;
 
 extern int clientnum;
-class BankApplication {
 
-
-
-};
 class Client;
 class BankAccount {
 protected:
@@ -59,8 +55,49 @@ public:
 extern BankAccount arr[1000];
 extern Client arr2[1000];
 
+class BankApplication {
+public:
+    BankApplication(){
+        int clientnum= 0;
+    }
+    bool addclient(){
+        arr2[clientnum].create_account();
+        return true;
+    }
+    void run() {
+        int choice;
+        do {
+            cout<<"Welcome to FCAI Banking Application"<<endl;
+            cout << "1. Create a New Account" << endl;
+            cout << "2. List Clients and Accounts" << endl;
+            cout << "3. Withdraw Money" << endl;
+            cout << "4. Deposit Money" << endl;
+            cout << "5. Exit" << endl;
+            cout << "Enter your choice: ";
+            cin >> choice;
+            switch (choice) {
+                case 1:
+                    addclient();
+                    break;
+                case 2:
+                    arr[clientnum].deposit();
+                    break;
+                case 3:
+                    arr[clientnum].withdraw();
+                    break;
+                case 4:
+                    arr[clientnum].display();
+                    break;
+                case 5:
+                    cout << "Thank you for using our services!" << endl;
+                    break;
+                default:
+                    cout << "Invalid choice!" << endl;
+                    break;
+            }
+        } while (choice != 5);
 
-
-
+    }
+};
 
 #endif //UNTITLED36_BANKAPPLICATION_H

@@ -1,5 +1,5 @@
 #include"BankApplication.h"
-int clientnum= 0;
+int clientnum = 0;
 BankAccount arr[1000];
 Client arr2[1000];
 double  BankAccount::getBalance() const{
@@ -44,10 +44,6 @@ void BankAccount:: deposit(){
                 cout << "Your new balance is: " << arr[i].balance << endl;
                 break;
             }
-            arr[i].balance += amount;
-            cout << "Amount deposited successfully!" << endl;
-            cout << "Your new balance is: " << arr[i].balance << endl;
-            break;
         }
         else if (i == clientnum - 1) {
             cout << "Account not found!" << endl;
@@ -97,8 +93,8 @@ void BankAccount::display(){
         cout << "Name: " << arr2[i].name<< endl;
         cout << "Address: " << arr2[i].address << endl;
         cout << "Phone number: " << arr2[i].phonenum << endl;
-        cout << "Type: " << arr[i].type << endl;
-        cout << "Balance: " << arr[i].balance << endl;
+        cout << "Account number: " << arr[i].ID << endl;
+        cout << "Balance: " << arr[i].balance <<" L.E"<< endl;
     }
 }
 
