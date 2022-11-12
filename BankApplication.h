@@ -6,30 +6,29 @@
 #define UNTITLED36_BANKAPPLICATION_H
 #include<bits/stdc++.h>
 using namespace std;
-static int clientnum = 0;
+
+extern int clientnum;
 class BankApplication {
+
 
 
 };
 class Client;
 class BankAccount {
-private:
+protected:
+    char type;
     string ID = "FCAI-";
     double balance;
-    char type;
 public:
     Client *client;
-
     double getBalance() const;
-
     void setBalance(double balance);
-
     virtual void deposit();
-
     virtual void withdraw();
-
     void display();
-
+    void setType(char);
+    string getID() const;
+    void setID(string);
 };
 
 class Client{
@@ -53,12 +52,12 @@ public:
     double getMinimumBalance() const;
 
     void setMinimumBalance(double minimumBalance);
-    void deposit() override;
-    void withdraw() override;
+    void deposit() ;
+    void withdraw();
 };
 
-BankAccount arr[1000];
-Client arr2[1000];
+extern BankAccount arr[1000];
+extern Client arr2[1000];
 
 
 

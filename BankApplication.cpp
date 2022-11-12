@@ -1,17 +1,28 @@
 #include"BankApplication.h"
-
+int clientnum= 0;
+BankAccount arr[1000];
+Client arr2[1000];
 double  BankAccount::getBalance() const{
     return balance;
 }
 void BankAccount::setBalance(double balance){
     BankAccount::balance = balance;
 }
+void BankAccount::setType(char ch) {
+    BankAccount::type = ch;
+}
+string BankAccount::getID() const {
+    return ID;
+}
+void BankAccount::setID(string ID) {
+    BankAccount::ID = ID;
+}
 void BankAccount:: deposit(){
     string id;
     cout << "Enter the account number: ";
     cin >> id;
     for (int i = 0; i < clientnum; i++) {
-        if (arr[i].ID == id) {
+        if (arr[i].ID == id && arr[i].type == 'B') {
             double amount;
             cout << "Enter the amount to be deposited: ";
             cin >> amount;
@@ -20,6 +31,27 @@ void BankAccount:: deposit(){
             cout << "Your new balance is: " << arr[i].balance << endl;
             break;
         }
+        else if (arr[i].ID == id && arr[i].type == 'S') {
+            double amount;
+            cout << "Enter the amount to be deposited: ";
+            cin >> amount;
+            if (amount < 100) {
+                cout << "The amount should be >= 100 LE" << endl;
+            }
+            else {
+                arr[i].balance += amount;
+                cout << "Amount deposited successfully!" << endl;
+                cout << "Your new balance is: " << arr[i].balance << endl;
+                break;
+            }
+            arr[i].balance += amount;
+            cout << "Amount deposited successfully!" << endl;
+            cout << "Your new balance is: " << arr[i].balance << endl;
+            break;
+        }
+        else if (i == clientnum - 1) {
+            cout << "Account not found!" << endl;
+        }
     }
 }
 void BankAccount:: withdraw(){
@@ -27,12 +59,29 @@ void BankAccount:: withdraw(){
     cout << "Enter the account number: ";
     cin >> id;
     for (int i = 0; i < clientnum; i++) {
-        if (arr[i].ID == id) {
+        if (arr[i].ID == id && arr[i].type == 'B') {
             double amount;
             cout << "Enter the amount to be withdrawn: ";
             cin >> amount;
             if (amount > arr[i].balance) {
                 cout << "Insufficient balance!" << endl;
+            }
+            else {
+                arr[i].balance -= amount;
+                cout << "Amount withdrawn successfully!" << endl;
+                cout << "Your new balance is: " << arr[i].balance << endl;
+            }
+            break;
+        }
+        else if (arr[i].ID == id && arr[i].type == 'S') {
+            double amount;
+            cout << "Enter the amount to be withdrawn: ";
+            cin >> amount;
+            if (amount > arr[i].balance) {
+                cout << "Insufficient balance!" << endl;
+            }
+            else if (amount > arr[i].balance - 1000) {
+                cout << "You cannot withdraw more than 1000!" << endl;
             }
             else {
                 arr[i].balance -= amount;
@@ -52,13 +101,60 @@ void BankAccount::display(){
         cout << "Balance: " << arr[i].balance << endl;
     }
 }
+
 double SavingBankAccount::getMinimumBalance() const {
     return minimum_balance;
 }
-
-void  SavingBankAccount::setMinimumBalance(double minimumBalance) {
+void SavingBankAccount::setMinimumBalance(double minimumBalance = 1000) {
     minimum_balance = minimumBalance;
 }
+void SavingBankAccount::deposit() {
+    string id;
+    cout << "Enter the account number: ";
+    cin >> id;
+    for (int i = 0; i < clientnum; i++) {
+        if (arr[i].getID() == id) {
+            double amount;
+            cout << "Enter the amount to be deposited: ";
+            cin >> amount;
+            if (amount < 100) {
+                cout << "The amount should be >= 100 LE" << endl;
+            }
+            else {
+                arr[i].setBalance(arr[i].getBalance() + amount);
+                cout << "Amount deposited successfully!" << endl;
+                cout << "Your new balance is: " << arr[i].getBalance() << endl;
+            }
+            break;
+        }
+    }
+}
+void SavingBankAccount::withdraw() {
+    string id;
+    cout << "Enter the account number: ";
+    cin >> id;
+    for (int i = 0; i < clientnum; i++) {
+        if (arr[i].getID() == id) {
+            double amount;
+            cout << "Enter the amount to be withdrawn: ";
+            cin >> amount;
+            if (amount > arr[i].getBalance()) {
+                cout << "Insufficient balance!" << endl;
+            }
+            else if (arr[i].getBalance() - amount < minimum_balance) {
+                cout << "The amount should be >= minimum balance" << endl;
+            }
+            else {
+                arr[i].setBalance(arr[i].getBalance() - amount);
+                cout << "Amount withdrawn successfully!" << endl;
+                cout << "Your new balance is: " << arr[i].getBalance() << endl;
+            }
+            break;
+        }
+    }
+}
+
+
 void Client:: create_account(){
     cout << "Enter the name of the account holder: ";
     cin.ignore();
@@ -71,16 +167,16 @@ void Client:: create_account(){
     cin >> phonenum;
     arr2[clientnum].phonenum = phonenum;
     cout << "Enter the type of the account (B/S): ";
-    cin >> type;
-    type = toupper(type);
-    arr2[clientnum].type = type;
+    char ch;
+    cin >> ch;
+    ch = toupper(ch);
+    arr[clientnum].setType(ch);
     cout << "Enter the initial amount: ";
+    int balance;
     cin >> balance;
-    arr[clientnum].balance = balance;
+    arr[clientnum].setBalance(balance);
     cout << "Account created successfully!" << endl;
-    ID = ID + to_string(clientnum);
-    arr[clientnum].ID = ID;
-    cout << "Your account number is: " << ID << endl;
+    arr[clientnum].setID("FCAI-" + to_string(clientnum));
+    cout << "Your account number is: " << arr[clientnum].getID() << endl;
     clientnum++;
-    cout << "Press any key to continue..." << endl;
 }
